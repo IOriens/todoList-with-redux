@@ -4,7 +4,7 @@ module.exports = {
     watch: true,
     entry: {
         'index': 'index',
-        'vendor': ['react', 'redux', 'react-redux']
+        'vendor': ['react', 'redux', 'react-redux']        
     },
     output: {
         path: path.join(__dirname, 'public/js/dest'),
@@ -22,11 +22,14 @@ module.exports = {
     },
     plugins: [
         new webpack.optimize.CommonsChunkPlugin("vendor", "vendor.bundle.js"),
-        // new webpack.optimize.UglifyJsPlugin({
-        //     compress: {
-        //         warnings: false
-        //     }
-        // })
+        new webpack.DefinePlugin({
+            'process.env.NODE_ENV': '"production"'
+        }),
+        new webpack.optimize.UglifyJsPlugin({
+            compress: {
+                warnings: false
+            }
+        })
     ],
     resolve: {
         extensions: ["", ".js", ".jsx", '.es6'],
